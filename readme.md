@@ -1,0 +1,39 @@
+# P3OS
+
+P3OS is a project aimed at creating an operating system from scratch. It is designed for educational purposes to understand how OS components interact at the fundamental level, from bootstrapping the system to managing hardware and system resources. This project is written in **C** and **Assembly**, with the goal of building an OS that can boot on real hardware or in a virtualized environment.
+
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Requirements](#requirements)
+- [Setup](#setup)
+- [Building P3OS: Step-by-Step](#building-p3os-step-by-step)
+  - [1. Bootloader](#1-bootloader)
+  - [2. Kernel Initialization](#2-kernel-initialization)
+  - [3. Memory Management](#3-memory-management)
+  - [4. Task Scheduling](#4-task-scheduling)
+  - [5. File System](#5-file-system)
+  - [6. User Mode](#6-user-mode)
+  - [7. Drivers and I/O](#7-drivers-and-io)
+  - [8. Shell Interface](#8-shell-interface)
+- [Testing P3OS](#testing-p3os)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Project Overview
+
+P3OS is being developed to explore the low-level components and structure of an operating system. This project covers essential OS topics such as bootloaders, kernel development, memory management, multitasking, and hardware abstraction. By the end of this project, P3OS aims to be a minimalistic OS capable of basic file management, task scheduling, and offering a shell interface.
+
+## Requirements
+
+- **Development Environment**: GCC, NASM (Netwide Assembler), QEMU (or Bochs) for emulation
+- **Toolchain**: Cross-compiler setup for i686 or x86_64 architecture (if targeting Intel architecture)
+- **Additional Libraries**: Standard C library for OS development (newlib or similar)
+
+To set up the cross-compiler, follow [this guide on OSDev](https://wiki.osdev.org/GCC_Cross-Compiler).
+
+## Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/P3OS.git
+   cd P3OS
