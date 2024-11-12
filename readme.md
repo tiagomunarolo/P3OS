@@ -25,9 +25,9 @@ P3OS is being developed to explore the low-level components and structure of an 
 
 ## Requirements
 
-- **Development Environment**: GCC, NASM (Netwide Assembler), QEMU (or Bochs) for emulation
-- **Toolchain**: Cross-compiler setup for i686 or x86_64 architecture (if targeting Intel architecture)
-- **Additional Libraries**: Standard C library for OS development (newlib or similar)
+- **Development Environment**: GCC, ASM (Netwide Assembler), QEMU (or Bochs) for emulation
+- **Toolchain**: Cross-compiler setup for arm64
+- **Additional Libraries**: gcc, binutils, ld, etc
 
 To set up the cross-compiler, follow [this guide on OSDev](https://wiki.osdev.org/GCC_Cross-Compiler).
 
@@ -35,5 +35,10 @@ To set up the cross-compiler, follow [this guide on OSDev](https://wiki.osdev.or
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/P3OS.git
+   git clone https://github.com/tiagomunarolo/P3OS.git
+   
+   
    cd P3OS
+   make
+   make run
+   <qemu should run successfully>

@@ -13,6 +13,6 @@ void print(const char *s) {
     }
 }
 
-void kmain(void) {
+void kernel_init(void) {
      print("Hello world!\n");
 }
