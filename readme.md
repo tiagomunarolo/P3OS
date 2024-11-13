@@ -15,7 +15,7 @@ P3OS is a project aimed at creating an operating system from scratch. It is desi
   - [6. User Mode](#6-user-mode)
   - [7. Drivers and I/O](#7-drivers-and-io)
   - [8. Shell Interface](#8-shell-interface)
-- [Testing P3OS](#testing-p3os)
+- [Debugging P3OS](#testing-p3os)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -42,3 +42,11 @@ To set up the cross-compiler, follow [this guide on OSDev](https://wiki.osdev.or
    make
    make run
    <qemu should run successfully>
+   
+## Testing P3OS
+
+```bash
+  gdb <local-path>/kernel.elf
+  target remote localhost:1234
+
+  gdb (terminal) > ... debug ...

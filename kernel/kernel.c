@@ -1,18 +1,7 @@
+#include "aarch64.h"
+#include "uart.h"
 #include <stdint.h>
 
-volatile uint8_t *uart = (uint8_t *) 0x09000000;
-
-void putchar(char c) {
-    *uart = c;
-}
-
-void print(const char *s) {
-    while(*s != '\0') {
-        putchar(*s);
-        s++;
-    }
-}
-
 void kernel_init(void) {
-     print("Hello world!\n");
+    print("Kernel init [OK] \n");
 }

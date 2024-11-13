@@ -2,7 +2,7 @@ ENTRY(_start)
 SECTIONS
 {
 	. = 0x40000000;
-	.startup . : { target/boot.o(.text) }
+	.startup . : { bootloader/boot.o(.text) }
 	.text : { *(.text) }
 	.data : { *(.data) }
 	.bss : { *(.bss COMMON) }

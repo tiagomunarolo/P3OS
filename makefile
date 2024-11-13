@@ -4,59 +4,66 @@
 ASM = as
 ASM_FLAGS =
 
+# Main Directories
 BOOT_ROOT = ./bootloader
 KERNEL_ROOT = ./kernel
-TARGET = ./target
 
-# Compiler
+# CC Compiler and Flags
 CC = gcc
 CC_FLAGS = -ffreestanding
 
-# Source Files
-SRC = $(BOOT_ROOT)/boot.S  # source file
-LINKER_LD = linker.ld
-# Output Files
-BOOT_O = $(TARGET)/boot.o  # temporary object file
-KERNEL_O = $(TARGET)/kernel.o
-KERNEL_ELF = $(TARGET)/kernel.elf
-KERNEL_BIN = $(TARGET)/kernel.bin
+# ASM Source Files
+ASM_SRC = $(BOOT_ROOT)/boot.S
+ASM_O = $(ASM_SRC:.S=.o)  # Convert .S files to .o files
 
-# Definer QEMU flags
-QEMU = qemu-system-aarch64 # QEMU executable for ARM64
-QEMU_FLAGS = -machine virt -cpu cortex-a57 -kernel $(KERNEL_ELF) -nographic -s -S
+# List of C source files
+INCLUDES = $(KERNEL_ROOT)/includes
+C_FILES = $(KERNEL_ROOT)/kernel.c  \
+		$(KERNEL_ROOT)/uart.c
+C_OBJ = $(C_FILES:.c=.o)  # Convert .c files to .o files
+
+# Final executable target
+TARGET = kernel.elf  
 
 # Linker
 LD = ld
-LD_FLAGS = -T$(LINKER_LD)
+LD_FLAGS =-T linker.ld
 
-# Default target: Build and run the bootloader
-all: clean link_kernel
+# QEMU flags
+QEMU = qemu-system-aarch64 # QEMU executable for ARM64
+QEMU_FLAGS = -machine virt -m 128M -cpu cortex-a57 -kernel $(TARGET) -nographic -s -S
 
-$(TARGET):
-	@echo "Creating target directory: $(TARGET)"
-	@mkdir -p $(TARGET)
-
-
-$(KERNEL_O): $(TARGET)
-	@echo "Building kernel.c file: $(KERNEL_O)"
-	$(CC) $(CC_FLAGS) -c $(KERNEL_ROOT)/kernel.c -o $(KERNEL_O)
-
-$(BOOT_O): $(TARGET)
-	@echo "Building boot.asm file: $(BOOT_O)"
-	$(ASM) $(ASM_FLAGS) $(SRC) -o $(BOOT_O)
-
-# Build the bootloader: kernel.c, and boot.asm
-link_kernel: $(BOOT_O) $(KERNEL_O)
-	$(LD) $(LD_FLAGS) -o $(KERNEL_ELF) $(KERNEL_O)
+# Default target: clean build and run the bootloader
+all: clean run
 
 # Clean up generated files
 clean:
-	rm -rf $(TARGET)
-	@echo "Cleaned up."
+	@echo -e "Cleaning up object/elf files\n"
+	@find . -type f -name "*.o" -print0 | xargs -0 rm -f
+	@find . -type f -name "*.elf" -print0 | xargs -0 rm -f
 
+	
 # Run the bootloader in QEMU (can also be done using the 'all' target)
-run: kernel
+run: $(TARGET)
 	$(QEMU) $(QEMU_FLAGS)
+
+
+# Linking kernel and bootloader object files into the final executable
+$(TARGET): $(ASM_O) $(C_OBJ)
+	@echo -e "Linking kernel and bootloader into $(TARGET)\n"
+	@$(LD) $(LD_FLAGS) -o $(TARGET) $(C_OBJ)
+
+
+# Rule to compile bootloader (assembly) file
+%.o:%.S
+	@echo -e "Building $< ===> $@.\n"
+	@$(ASM) $(ASM_FLAGS) $< -o $@
+
+
+# Rule to compile .c files into .o files
+%.o: %.c
+	@echo -e "Building $< ===> $@.\n"
+	@$(CC) $(CC_FLAGS) -c $< -o $@ -I $(INCLUDES)
 
 # Help message
 help:
