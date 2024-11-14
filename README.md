@@ -42,17 +42,17 @@ To set up the cross-compiler, follow [this guide on OSDev](https://wiki.osdev.or
    # Create build directory and run
    mkdir build && cd build && cmake ../ && make
    # Start Qemu Emulator
-   qemu-system-aarch64 -M virt -kernel build/p3OS.elf -nographic
+   qemu-system-aarch64 -M virt -kernel build/p3OS.elf -cpu cortex-a57 -m 128M -nographic
    ```
 ## Testing P3OS
 
 ```bash
-  1: Init Qemu Emulator (First Shell):
+  # 1: Init Qemu Emulator (First Shell):
   qemu-system-aarch64 -M virt -kernel build/p3OS.elf -cpu cortex-a57 -m 128M -nographic
-
-  2: init GDB on bash terminal:
-  gdb <local-path>/kernel.elf
-  target remote localhost:1234
-
-  3: Debugging:
-  gdb (terminal) > ... debug ...
+  # 2: init GDB on bash terminal:
+  gdb <local-path>/p3OS.elf
+  # After start GDB, type:
+  gdb>target remote localhost:1234
+  # 3: run and debug:
+  gdb> ... debug ...
+  ```
