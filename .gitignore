@@ -1,6 +1,6 @@
 #vscode
 .vscode
-
+.DS_Store
 # ignore build dir
 build
 
@@ -13,6 +13,7 @@ build
 *.sym
 *.o
 *.elf
+*.img
 
 # ignore cmake
 CMakeLists.txt.user

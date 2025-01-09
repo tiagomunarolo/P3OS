@@ -1,7 +1,7 @@
-#include "aarch64.h"
-#include "uart.h"
-#include <stdint.h>
+#include "include/uart.h"
 
 void kernel_init(void) {
-    print("Kernel init [OK] \n");
+    uart_init();    //init uart
+    uart_writeText("UART STARTED...\n");
+    while (1);
 }
