@@ -21,7 +21,7 @@ void uart_writeByte(unsigned char ch)
     mmio_write(AUX_MU_IO_REG, (unsigned int)ch); // write byte to uart
 }
 
-void set_gpio_pins()
+void enable_rx_tx_pins()
 {
     // pull down pins 14 and 15
     u32 value = mmio_read(GPIO_PUP_PDN_CNTRL_REG0);
@@ -41,7 +41,7 @@ void uart_init()
     mmio_write(AUX_MU_LCR_REG, 3);    // 8 bits
     mmio_write(AUX_MU_MCR_REG, 0);    // diable model signals
     mmio_write(AUX_MU_BAUD_REG, 541); // set baudrate
-    set_gpio_pins();
+    enable_rx_tx_pins();
     mmio_write(AUX_MU_CNTL_REG, 3); // enable RX/TX
     uart_writeByte('\r');
     uart_writeByte('\n');
