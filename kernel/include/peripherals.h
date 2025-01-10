@@ -31,3 +31,6 @@
 #define GPIO_GPCLR0         GPIO_BASE + 0x28             //GPIO Pin Output Clear 0
 #define GPIO_GPCLR1         GPIO_BASE + 0x2c             //GPIO Pin Output Clear 1
 #define GPIO_PUP_PDN_CNTRL_REG0 GPIO_BASE + 0xe4         //GPIO Pullup/Pulldown Control
+#define GPIO_PUP_PDN_CNTRL_REG1 GPIO_BASE + 0xe8         //GPIO Pullup/Pulldown Control
+#define GPIO_PUP_PDN_CNTRL_REG2 GPIO_BASE + 0xec         //GPIO Pullup/Pulldown Control
+#define GPIO_PUP_PDN_CNTRL_REG3 GPIO_BASE + 0xf0         //GPIO Pullup/Pulldown Control
